@@ -1,4 +1,5 @@
 node {
+    def gitrepo = 'https://github.com/sandro-lex-symphony/docker-images.git'
     stage('Preparation') {
         echo '### Stage preparation'
         sh 'ls -al'
