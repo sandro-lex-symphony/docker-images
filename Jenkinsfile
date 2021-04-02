@@ -14,11 +14,13 @@ node {
     stage('Docker build') {
         echo '### Going to docker build'
         sh 'docker --version'
-        sh 'ls -al '
+        sh 'docker build -f base1/Dockerfile -t expbase:1 base1'
+        sh 'docker images'
     }
 
     stage('Vuln Scan') {
         echo '### Going to scan it'
+        sh 'cd /tmp && wget https://nodejs.org/dist/v10.21.0/node-v10.21.0-linux-x64.tar.xz && tar -xf node-v10.21.0-linux-x64.tar.xz --directory /usr/local --strip-components 1'
         sh 'npm install snyk'
         sh 'snyk --version'
     }
