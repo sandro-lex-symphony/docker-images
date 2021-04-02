@@ -26,6 +26,7 @@ node {
         sh 'snyk --version'
         withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
             sh 'snyk auth '+SNYK_TOKEN  
+        }
         sh 'snyk container test expbase:1'
     }
 }
