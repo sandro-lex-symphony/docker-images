@@ -1,5 +1,6 @@
 node {
     def gitrepo = 'https://github.com/sandro-lex-symphony/docker-images.git'
+    def image_name = 'expbase:1'
     stage('Preparation') {
         echo '### Stage preparation'
         sh 'ls -al'
@@ -14,8 +15,7 @@ node {
     stage('Docker build') {
         echo '### Going to docker build'
         sh 'docker --version'
-        sh 'docker build -f base1/Dockerfile -t expbase:1 base1'
-        sh 'docker images'
+        sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
     }
 
     stage('Vuln Scan') {
@@ -27,6 +27,6 @@ node {
         withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
             sh 'snyk auth '+SNYK_TOKEN  
         }
-        sh 'snyk container test expbase:1'
+        sh 'snyk container test --severity-threshold=high --policy-path=debian-policy ' +image_name 
     }
 }

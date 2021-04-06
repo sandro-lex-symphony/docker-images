@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t base1 . 
+docker build -t base:1 . 
 

@@ -1,0 +1,49 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-DEBIAN10-GLIBC-559493:
+    - '*':
+        reason: None Given
+        expires: 2021-05-05T16:22:10.916Z
+  SNYK-DEBIAN10-GCC8-469413:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:19:33.824Z
+  SNYK-DEBIAN10-GCC8-347558:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:19:45.523Z
+  SNYK-DEBIAN10-GLIBC-559488:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:19:59.450Z
+  SNYK-DEBIAN10-SYSTEMD-345386:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:20:10.074Z
+  SNYK-DEBIAN10-SYSTEMD-345391:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:20:21.231Z
+  SNYK-DEBIAN10-GLIBC-1065768:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:21:39.892Z
+  SNYK-DEBIAN10-GNUTLS28-609778:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:21:47.137Z
+  SNYK-DEBIAN10-GNUTLS28-1085097:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:22:04.176Z
+  SNYK-DEBIAN10-LIBIDN2-474100:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:22:25.279Z
+  SNYK-DEBIAN10-GNUTLS28-1085094:
+    - '*':
+        reason: None Given
+        expires: 2021-05-06T13:23:44.306Z
+patch: {}
