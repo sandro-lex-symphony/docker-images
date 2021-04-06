@@ -20,7 +20,7 @@ node {
 
     stage('Vuln Scan') {
         echo '### Going to scan it'
-        sh 'cd /tmp && wget https://nodejs.org/dist/v10.21.0/node-v10.21.0-linux-x64.tar.xz && tar -xf node-v10.21.0-linux-x64.tar.xz --directory /usr/local --strip-components 1'
+        sh 'wget https://nodejs.org/dist/v10.21.0/node-v10.21.0-linux-x64.tar.xz && tar -xf node-v10.21.0-linux-x64.tar.xz --directory /usr/local --strip-components 1'
         sh 'node --version'
         sh 'npm install -g snyk'
         sh 'snyk --version'
