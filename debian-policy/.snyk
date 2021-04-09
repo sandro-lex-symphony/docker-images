@@ -40,4 +40,16 @@ ignore:
     - '*':
         reason: "[sandro.lex@symphony.com] Buster - gnutls28 <no-dsa> (Minor issue)"
         expires: 2021-06-06T13:23:44.306Z
+  SNYK-DEBIAN10-SQLITE3-537598:
+    - 'python3-defaults/python3@3.7.3-1 > python3.7@3.7.3-2+deb10u3 > python3.7/libpython3.7-stdlib@3.7.3-2+deb10u3 > sqlite3/libsqlite3-0@3.27.2-3+deb10u1':
+        reason: "[sandro.lex@symphony.com] Buster <ignored> - (Minor issue, too intrusive too fix). SQLite3 + python is probably not used in production. Ok to ignore --> Path is important"
+  SNYK-DEBIAN10-PYTHONPIP-609805:
+    - '*':
+        reason: "[sandro.lex@symphony.com] [buster] - python-pip <no-dsa> (Minor issue) --> pip is not used in production. "
+  # MEDIUM
+  SNYK-DEBIAN10-GLIBC-559181:
+    - '*':
+        reason: "[sandro.lex@symphony.com] [buster] - glibc <no-dsa> (Minor issue)"
+        expires: 2021-06-06T13:22:25.279Z
+
 patch: {}
