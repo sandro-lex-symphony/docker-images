@@ -65,7 +65,7 @@ wfaroese
 wfrench
 wgaelic
 wgerman-medical
-whatweb, whois
+whatweb
 wirish
 witalian
 wmanx
