@@ -2,6 +2,10 @@
 version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-DEBIAN10-NETTLE-1090205:
+    - '*':
+        reason: "[sandro.lex@symphony.com] Buster - nettle <no-dsa> (Minor issue). It seems that gnuTLS is not used. Have to check it later"
+        expires: 2021-05-12T13:21:39.892Z
   SNYK-DEBIAN10-GLIBC-559493:
     - '*':
         reason: "[sandro.lex@symphony.com] Buster - glibc <no-dsa> (Minor issue). Local vector leads to arbritary code exection."
