@@ -34,7 +34,7 @@ node {
         echo '### Going to docker build'
         sh 'docker --version'
         sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
-        sh 'docker build -f bad-examples/Dockerfile-tcpdump badimage bad-examples'
+        sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
     stage('### Experimental') {
