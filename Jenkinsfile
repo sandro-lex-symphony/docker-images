@@ -36,6 +36,13 @@ node {
         sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
     }
 
+    stage('### Experimental') {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
+            sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
+            sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock -v packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental ' + image_name + ' /tmp/bl.txt'
+    }
+
     
     // stage('Vuln Scan') {
     //     echo '### Going to scan it'

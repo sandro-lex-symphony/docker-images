@@ -1,4 +1,7 @@
 gcc
+!gcc-8-base
+!libgcc1
+g++
 cpp
 tcpdump
 tcpflow
