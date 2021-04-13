@@ -34,6 +34,7 @@ node {
         echo '### Going to docker build'
         sh 'docker --version'
         sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
+        sh 'docker build -f bad-examples/Dockerfile-tcpdump badimage bad-exmaples'
     }
 
     stage('### Experimental') {
@@ -41,6 +42,7 @@ node {
             sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
             sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental ' + image_name + ' /tmp/bl.txt'
+            sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental badimage /tmp/bl.txt'
         }
     }
 
