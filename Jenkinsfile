@@ -41,6 +41,7 @@ node {
             sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
             sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock -v packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental ' + image_name + ' /tmp/bl.txt'
+        }
     }
 
     
