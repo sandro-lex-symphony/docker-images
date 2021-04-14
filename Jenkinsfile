@@ -43,7 +43,8 @@ node {
             sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
             sh 'ls -al'
             sh 'pwd'
-            sh 'cat /home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
+            sh 'ls -al packages/blacklist.txt'
+            sh 'ls -al `pwd`/packages/' 
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
             //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/packages:/tmp 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/blacklist.txt'
