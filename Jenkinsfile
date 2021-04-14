@@ -43,7 +43,7 @@ node {
             sh 'ls -al `pwd`/packages/' 
             sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker'
             sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/var/lib/kubelet/pods/1c0c0388-9d8f-4207-829e-863b87557027/volumes/kubernetes.io~empty-dir/workspace-volume/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
-            sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
+            sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/home/jenkins
             //sh 'docker run --rm -i -v /:/tmp/j badimage find / -name blacklist.txt'
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
