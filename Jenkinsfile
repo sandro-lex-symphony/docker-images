@@ -45,7 +45,7 @@ node {
             sh 'pwd'
             sh 'ls -al packages/blacklist.txt'
             sh 'ls -al `pwd`/packages/' 
-            sh 'docker run --rm -i -v /var/jenkins_home:/tmp/j badimage ls -al /tmp/j'
+            sh 'docker run --rm -i -v /var:/tmp/j badimage ls -al /tmp/j'
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
             //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/packages:/tmp 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/blacklist.txt'
