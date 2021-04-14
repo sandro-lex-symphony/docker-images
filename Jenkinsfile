@@ -29,22 +29,34 @@ node {
     stage('Docker build') {
         echo '### Going to docker build'
         sh 'docker --version'
-        //sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
+        sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
         sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
-    stage('### Experimental Checkpackages') {
-        sh 'ls -al'
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-            sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker'
-            sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
-            //sh 'docker run --rm -i -v /:/tmp/j badimage find / -name blacklist.txt'
-            //sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
-            //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
-            //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/blacklist.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/blacklist.txt'
+    stage('New Syntax') {
+        steps {
+            script {
+                docker.image(image_name).inside{
+                    sh 'pwd'
+                    sh 'ls -al'
+                    sh 'cat /etc/os-release'
+                }
+            }
         }
     }
+
+    // stage('### Experimental Checkpackages') {
+    //     sh 'ls -al'
+    //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+    //         sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
+    //         sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker'
+    //         sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
+    //         //sh 'docker run --rm -i -v /:/tmp/j badimage find / -name blacklist.txt'
+    //         //sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
+    //         //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
+    //         //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/blacklist.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/blacklist.txt'
+    //     }
+    // }
 
     //  stage('### Experimental Dockle') {
     //       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
