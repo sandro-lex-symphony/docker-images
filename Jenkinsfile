@@ -44,9 +44,9 @@ node {
             sh 'ls -al'
             sh 'pwd'
             sh 'cat /home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
-            sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
-            sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental ' + image_name + ' /tmp/bl.txt'
-            sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/docker-images/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental badimage /tmp/bl.txt'
+            sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
+            sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
+            sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/docker-images/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/bl.txt'
         }
     }
 
