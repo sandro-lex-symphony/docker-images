@@ -34,7 +34,9 @@ node {
     }
 
     stage('New Syntax') {
-        sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
+        }
         script {
             docker.image('189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental').inside{
                 sh 'pwd'
