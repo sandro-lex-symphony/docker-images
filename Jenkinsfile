@@ -44,7 +44,7 @@ node {
             sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/'
             sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/home'
             sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/opt'
-            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/mnt'
+            sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
             //sh 'docker run --rm -i -v /:/tmp/j badimage find / -name blacklist.txt'
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
