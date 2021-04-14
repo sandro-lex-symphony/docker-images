@@ -34,13 +34,11 @@ node {
     }
 
     stage('New Syntax') {
-        steps {
-            script {
-                docker.image(image_name).inside{
-                    sh 'pwd'
-                    sh 'ls -al'
-                    sh 'cat /etc/os-release'
-                }
+        script {
+            docker.image(image_name).inside{
+                sh 'pwd'
+                sh 'ls -al'
+                sh 'cat /etc/os-release'
             }
         }
     }
