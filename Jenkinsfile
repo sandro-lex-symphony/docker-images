@@ -33,20 +33,24 @@ node {
         sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
-    stage('New Syntax') {
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-            sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-            sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
-        }
-        script {
-            docker.image('189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental').inside{
-                sh 'pwd'
-                sh 'ls -al'
-                sh 'cat /etc/os-release'
-                sh 'checkpackage ' + image_name + ' packages/blacklist.txt'
-            }
-        }
+    stage('getting binary') {
+        sh 'wget https://github.com/sandro-lex-symphony/checkpackages/releases/download/v0.1/checkpackages; chmod +x checkpackages'
+        sh './checkpackages ' + image_name + ' packages/blacklist.txt'
     }
+    // stage('New Syntax') {
+    //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+    //         sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
+    //         sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
+    //     }
+    //     script {
+    //         docker.image('189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental').inside{
+    //             sh 'pwd'
+    //             sh 'ls -al'
+    //             sh 'cat /etc/os-release'
+    //             sh 'checkpackage ' + image_name + ' packages/blacklist.txt'
+    //         }
+    //     }
+    // }
 
     // stage('### Experimental Checkpackages') {
     //     sh 'ls -al'
