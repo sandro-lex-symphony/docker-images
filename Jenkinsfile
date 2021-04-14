@@ -5,10 +5,6 @@ import com.symphony.security.containers.CheckPackages
 node {
     def gitrepo = 'https://github.com/sandro-lex-symphony/docker-images.git'
     def image_name = 'expbase:1'
-    stage('Preparation') {
-        echo '### Stage preparation'
-        sh 'ls -al'
-    }
     stage('Git pull') {
         echo '### Performing git pull for ' + gitrepo
         sh 'pwd'
@@ -16,9 +12,9 @@ node {
     }
 
     stage('Docker pull') {
-        echo '### Going to test a docker pull'
-        def cp = new CheckPackages(this)
-        cp.t()
+        //echo '### Going to test a docker pull'
+        //def cp = new CheckPackages(this)
+        //cp.t()
 
         //  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
         //     sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
@@ -45,7 +41,11 @@ node {
             sh 'pwd'
             sh 'ls -al packages/blacklist.txt'
             sh 'ls -al `pwd`/packages/' 
-            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j'
+            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/'
+            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/home'
+            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/opt'
+            sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/mnt'
+            sh 'docker run --rm -i -v /:/tmp/j badimage find / -name blacklist.txt
             sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
             //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/packages:/tmp 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/blacklist.txt'
