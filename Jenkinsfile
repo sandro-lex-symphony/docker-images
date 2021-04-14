@@ -34,11 +34,13 @@ node {
     }
 
     stage('New Syntax') {
+        sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
         script {
-            docker.image(image_name).inside{
+            docker.image('189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental').inside{
                 sh 'pwd'
                 sh 'ls -al'
                 sh 'cat /etc/os-release'
+                sh 'checkpackage ' + image_name + ' packages/blacklist.txt'
             }
         }
     }
