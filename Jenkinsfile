@@ -33,9 +33,9 @@ node {
         sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
-    stage('getting binary') {
-        sh 'wget https://github.com/sandro-lex-symphony/checkpackages/releases/download/v0.1/checkpackages; chmod +x checkpackages'
-        sh './checkpackages ' + image_name + ' packages/blacklist.txt'
+    stage('Check Packages Using Library') {
+        def cp = new CheckPackages(this)
+        cp.run(image_name)       
     }
     // stage('New Syntax') {
     //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
@@ -65,14 +65,14 @@ node {
     //     }
     // }
 
-     stage('### Experimental Dockle') {
-          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-            sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-            sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental'
-            sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental --exit-code 0 ' + image_name
-            //sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental --exit-code 1 badimage '
-        }
-    }
+    //  stage('### Experimental Dockle') {
+    //       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+    //         sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
+    //         sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental'
+    //         sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental --exit-code 0 ' + image_name
+    //         //sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental --exit-code 1 badimage '
+    //     }
+    // }
 
     stage('### Dockle with binary') {
         sh 'wget https://github.com/sandro-lex-symphony/checkpackages/releases/download/v0.1/dockle; chmod +x dockle'
