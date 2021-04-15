@@ -12,20 +12,6 @@ node {
         git  url: gitrepo
     }
 
-    // stage('Docker pull') {
-    //     //echo '### Going to test a docker pull'
-    //     //def cp = new CheckPackages(this)
-    //     //cp.t()
-
-    //     //  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-    //     //     sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-    //     //     sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/debian:buster-slim'
-    //     //     sh 'docker run 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/debian:buster-slim cat /etc/os-release'
-    //     //  }
-
-
-    // }
-
 
     stage('Docker build') {
         echo '### Going to docker build'
@@ -39,51 +25,8 @@ node {
         cp.run(image_name)
 
         def dockle = new Dockle(this)
-        dockle.run(image_name)
-        //cp.run('badimage')   
+        dockle.run(image_name)   
     }
-    // stage('New Syntax') {
-    //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-    //         sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-    //         sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental'
-    //     }
-    //     script {
-    //         docker.image('189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:experimental').inside{
-    //             sh 'pwd'
-    //             sh 'ls -al'
-    //             sh 'cat /etc/os-release'
-    //             sh 'checkpackage ' + image_name + ' packages/blacklist.txt'
-    //         }
-    //     }
-    // }
-
-    // stage('### Experimental Checkpackages') {
-    //     sh 'ls -al'
-    //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-    //         sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-    //         sh 'docker run --rm -i -v /:/tmp/j badimage ls -al /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker'
-    //         sh 'docker run --rm -i -v /:/tmp/j badimage cat /tmp/j/mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt'
-    //         //sh 'docker run --rm -i -v /:/tmp/j badimage find / -name blacklist.txt'
-    //         //sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug'
-    //         //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/bl.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug ' + image_name + ' /tmp/bl.txt'
-    //         //sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/stateful_partition/home/jenkins/workspace/ImagesFactory/testDocker/packages/blacklist.txt:/tmp/blacklist.txt 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/checkpackages:debug badimage /tmp/blacklist.txt'
-    //     }
-    // }
-
-    //  stage('### Experimental Dockle') {
-    //       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-    //         sh "set +x; echo 'Logging into docker repo'; `aws --region us-east-1 ecr get-login --no-include-email`"
-    //         sh 'docker pull 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental'
-    //         sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental --exit-code 0 ' + image_name
-    //         //sh 'docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock 189141687483.dkr.ecr.us-east-1.amazonaws.com/slex-reg-test/dockle:experimental --exit-code 1 badimage '
-    //     }
-    // }
-
-    // stage('### Dockle with binary') {
-    //     sh 'wget https://github.com/sandro-lex-symphony/checkpackages/releases/download/v0.1/dockle; chmod +x dockle'
-    //     sh './dockle --exit-code 0 ' + image_name
-    // }
-
     
     // stage('Vuln Scan') {
     //     echo '### Going to scan it'
