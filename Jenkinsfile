@@ -1,5 +1,6 @@
  @Library('SnykShared@master')                                                                                                                                                                    
 import com.symphony.security.containers.CheckPackages
+import com.symphony.security.containers.Dockle
 
 
 node {
@@ -35,8 +36,11 @@ node {
 
     stage('Check Packages Using Library') {
         def cp = new CheckPackages(this)
-        cp.run(image_name) 
-        cp.run('badimage')   
+        cp.run(image_name)
+
+        def dockle = new Dockle(this)
+        dockle.run(image_name)
+        //cp.run('badimage')   
     }
     // stage('New Syntax') {
     //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
@@ -75,10 +79,10 @@ node {
     //     }
     // }
 
-    stage('### Dockle with binary') {
-        sh 'wget https://github.com/sandro-lex-symphony/checkpackages/releases/download/v0.1/dockle; chmod +x dockle'
-        sh './dockle --exit-code 0 ' + image_name
-    }
+    // stage('### Dockle with binary') {
+    //     sh 'wget https://github.com/sandro-lex-symphony/checkpackages/releases/download/v0.1/dockle; chmod +x dockle'
+    //     sh './dockle --exit-code 0 ' + image_name
+    // }
 
     
     // stage('Vuln Scan') {
