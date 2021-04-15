@@ -2,6 +2,7 @@
 import com.symphony.security.containers.CheckPackages
 import com.symphony.security.containers.Dockle
 import com.symphony.security.snyk.Container
+import com.symphony.security.containers.Control
 
 
 node {
@@ -21,18 +22,21 @@ node {
         //sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
-    stage('Check Packages Using Library') {
-        def cp = new CheckPackages(this)
-        cp.run(image_name)
+    stage('Security Checks') {
+        def security = new Control(this)
+        security.run(image_name)
 
-        def dockle = new Dockle(this)
-        dockle.run(image_name)   
+        // def cp = new CheckPackages(this)
+        // cp.run(image_name)
+
+        // def dockle = new Dockle(this)
+        // dockle.run(image_name)   
     }
 
-    stage('Vuln Scan') {
-        withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
-             def snyk = new Container(this, SNYK_TOKEN)
-             snyk.test(image_name) // will fail the job if High Vuln found
-        }
-    }
+    // stage('Vuln Scan') {
+    //     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
+    //          def snyk = new Container(this, SNYK_TOKEN)
+    //          snyk.test(image_name) // will fail the job if High Vuln found
+    //     }
+    // }
 }
