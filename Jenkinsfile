@@ -30,19 +30,9 @@ node {
     }
 
     stage('Vuln Scan') {
-        def snyk = new Container(this)
-        snyk.test(image_name)
+        withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
+             def snyk = new Container(this, SNYK_TOKEN)
+             snyk.test(image_name) // will fail the job if High Vuln found
+        }
     }
-    
-    // stage('Vuln Scan') {
-    //     echo '### Going to scan it'
-    //     sh 'wget https://nodejs.org/dist/v10.21.0/node-v10.21.0-linux-x64.tar.xz && tar -xf node-v10.21.0-linux-x64.tar.xz --directory /usr/local --strip-components 1'
-    //     sh 'node --version'
-    //     sh 'npm install -g snyk'
-    //     sh 'snyk --version'
-    //     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
-    //         sh 'snyk auth '+SNYK_TOKEN  
-    //     }
-    //     sh 'snyk container test --severity-threshold=high --policy-path=debian-policy ' +image_name 
-    // }
 }
