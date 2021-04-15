@@ -36,7 +36,7 @@ node {
     stage('Check Packages Using Library') {
         def cp = new CheckPackages(this)
         cp.run(image_name) 
-        cp.run(badimage)   
+        cp.run('badimage')   
     }
     // stage('New Syntax') {
     //     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'sym-aws-dev', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
