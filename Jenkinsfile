@@ -1,6 +1,7 @@
  @Library('SnykShared@master')                                                                                                                                                                    
 import com.symphony.security.containers.CheckPackages
 import com.symphony.security.containers.Dockle
+import com.symphony.security.snyk.Container
 
 
 node {
@@ -26,6 +27,11 @@ node {
 
         def dockle = new Dockle(this)
         dockle.run(image_name)   
+    }
+
+    stage('Vuln Scan') {
+        def snyk = new Container(this)
+        snyk.test(image_name)
     }
     
     // stage('Vuln Scan') {
