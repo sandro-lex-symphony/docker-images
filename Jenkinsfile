@@ -1,7 +1,4 @@
  @Library('SnykShared@master')                                                                                                                                                                    
-import com.symphony.security.containers.CheckPackages
-import com.symphony.security.containers.Dockle
-import com.symphony.security.snyk.Container
 import com.symphony.security.containers.Control
 
 
@@ -19,7 +16,7 @@ node {
         echo '### Going to docker build'
         sh 'docker --version'
         sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
-        sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
+        //sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
     stage('Security Checks') {
