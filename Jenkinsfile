@@ -19,7 +19,7 @@ node {
         echo '### Going to docker build'
         sh 'docker --version'
         sh 'docker build -f base1/Dockerfile -t ' +image_name+' base1'
-        //sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
+        sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
     }
 
     stage('Security Checks') {
@@ -37,6 +37,7 @@ node {
         withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
              def snyk = new Container(this, SNYK_TOKEN)
              snyk.test(image_name) // will fail the job if High Vuln found
+             snyk.test('badimage')
         }
     }
 }
