@@ -36,7 +36,7 @@ node {
     stage('Vuln Scan') {
         withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
              def snyk = new Container(this, SNYK_TOKEN)
-             snyk.test(image_name) // will fail the job if High Vuln found
+             snyk.test2(image_name) // will fail the job if High Vuln found
             //  snyk.test('badimage')
         }
     }
