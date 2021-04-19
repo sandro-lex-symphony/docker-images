@@ -17,12 +17,13 @@ node {
         sh 'docker --version'
         sh 'DOCKER_BUILDKIT=1 docker build -f base1/Dockerfile -t ' +image_name+' base1'
         //sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
+        sh 'cat ~/.docker/config.json'
     }
 
-    stage('Security Checks') {
-        def security = new Control(this)
-        security.run(image_name)
-    }
+    // stage('Security Checks') {
+    //     def security = new Control(this)
+    //     security.run(image_name)
+    // }
 
     stage('Check Artifactory creds') {
         withCredentials([usernamePassword(credentialsId: 'artifactory_registry_svc_user', passwordVariable: 'pwd', usernameVariable: 'username')]) {
