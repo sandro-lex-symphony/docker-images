@@ -30,6 +30,13 @@ node {
         // dockle.run(image_name)   
     }
 
+    stage('Check Artifactory creds') {
+        withCredentials([string(credentialsId: 'artifactory_registry_svc_user', variable: 'artifactory_pwd')]) {
+            sh "docker login --username artifactory_registry_svc_user --password ${artifactory_pwd}"
+            sh "docker tag ${image_name} artifact.symphony.com/slex-reg-test/test1:1"
+            sh "docker push artifact.symphony.com/slex-reg-test/test1:1"
+    }
+
     // stage('Vuln Scan') {
     //     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
     //          def snyk = new Container(this, SNYK_TOKEN)
