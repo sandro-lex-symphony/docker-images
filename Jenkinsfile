@@ -6,14 +6,13 @@ import com.symphony.security.containers.Artifactory
 node {
     def gitrepo = 'https://github.com/sandro-lex-symphony/docker-images.git'
     def image_name = 'expbase:1'
-    def artifactory_repository = "/slex-reg-test/expbase:1"
+    def artifactory_repository = "slex-reg-test/expbase:1"
 
     stage('Git pull') {
         echo '### Performing git pull for ' + gitrepo
         sh 'pwd'
         git  url: gitrepo
     }
-
 
     stage('Docker build') {
         echo '### Going to docker build'
