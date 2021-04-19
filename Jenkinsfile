@@ -17,7 +17,6 @@ node {
         sh 'docker --version'
         sh 'DOCKER_BUILDKIT=1 docker build -f base1/Dockerfile -t ' +image_name+' base1'
         //sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
-        sh 'cat ~/.docker/config.json'
     }
 
     // stage('Security Checks') {
@@ -28,6 +27,7 @@ node {
     stage('Check Artifactory creds') {
         withCredentials([usernamePassword(credentialsId: 'artifactory_registry_svc_user', passwordVariable: 'pwd', usernameVariable: 'username')]) {
             sh "DOCKER_BUILDKIT=1 docker login --username ${username} --password \"${pwd}\" artifact.symphony.com"
+            sh 'cat ~/.docker/config.json'
             sh "DOCKER_BUILDKIT=1 docker tag ${image_name} artifact.symphony.com/slex-reg-test/test1:1"
             sh "DOCKER_BUILDKIT=1 docker push artifact.symphony.com/slex-reg-test/test1:1"
         }
