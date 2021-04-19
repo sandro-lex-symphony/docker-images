@@ -31,11 +31,4 @@ node {
         artifactory.push(image_name, artifactory_repository)
     }
 
-    // stage('Check Artifactory creds') {
-    //     withCredentials([usernamePassword(credentialsId: 'artifactory_registry_svc_user', passwordVariable: 'pwd', usernameVariable: 'username')]) {
-    //         sh "DOCKER_BUILDKIT=1 docker login --username ${username} --password \"${pwd}\" artifact.symphony.com"
-    //         sh "DOCKER_BUILDKIT=1 docker tag ${image_name} artifact.symphony.com/slex-reg-test/test1:1"
-    //         sh "DOCKER_BUILDKIT=1 docker push artifact.symphony.com/slex-reg-test/test1:1"
-    //     }
-    // }
 }
