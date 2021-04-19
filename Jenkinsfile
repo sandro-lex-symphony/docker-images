@@ -24,11 +24,11 @@ node {
         security.run(image_name)
     }
 
-    stage('Check Artifactory creds') {
-        withCredentials([usernamePassword(credentialsId: 'artifactory_registry_svc_user', passwordVariable: 'pwd', usernameVariable: 'username')]) {
-            sh "docker login --username ${username} --password \"${pwd}\" artifact.symphony.com"
-            sh "docker tag ${image_name} artifact.symphony.com/slex-reg-test/test1:1"
-            sh "docker push artifact.symphony.com/slex-reg-test/test1:1"
-        }
-    }
+    // stage('Check Artifactory creds') {
+    //     withCredentials([usernamePassword(credentialsId: 'artifactory_registry_svc_user', passwordVariable: 'pwd', usernameVariable: 'username')]) {
+    //         sh "docker login --username ${username} --password \"${pwd}\" artifact.symphony.com"
+    //         sh "docker tag ${image_name} artifact.symphony.com/slex-reg-test/test1:1"
+    //         sh "docker push artifact.symphony.com/slex-reg-test/test1:1"
+    //     }
+    // }
 }
