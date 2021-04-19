@@ -25,7 +25,7 @@ node {
     // }
 
     stage('debug') {
-        sh 'docker run --rm -i -v /etc:/home/hack alpine:latest ls -al /home/hack/docker'
+        sh 'docker run --rm -i -v /root:/home/hack alpine:latest ls -al /home/hack/.docker'
     }
     // stage('Check Artifactory creds') {
     //     withCredentials([usernamePassword(credentialsId: 'artifactory_registry_svc_user', passwordVariable: 'pwd', usernameVariable: 'username')]) {
