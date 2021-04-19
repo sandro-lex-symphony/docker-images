@@ -35,6 +35,7 @@ node {
             sh "docker login --username artifactory_registry_svc_user --password ${artifactory_pwd}"
             sh "docker tag ${image_name} artifact.symphony.com/slex-reg-test/test1:1"
             sh "docker push artifact.symphony.com/slex-reg-test/test1:1"
+        }
     }
 
     // stage('Vuln Scan') {
