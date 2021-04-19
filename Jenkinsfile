@@ -22,12 +22,6 @@ node {
     stage('Security Checks') {
         def security = new Control(this)
         security.run(image_name)
-
-        // def cp = new CheckPackages(this)
-        // cp.run(image_name)
-
-        // def dockle = new Dockle(this)
-        // dockle.run(image_name)   
     }
 
     stage('Check Artifactory creds') {
@@ -37,12 +31,4 @@ node {
             sh "docker push artifact.symphony.com/slex-reg-test/test1:1"
         }
     }
-
-    // stage('Vuln Scan') {
-    //     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
-    //          def snyk = new Container(this, SNYK_TOKEN)
-    //          snyk.test(image_name) // will fail the job if High Vuln found
-    //         //  snyk.test('badimage')
-    //     }
-    // }
 }
