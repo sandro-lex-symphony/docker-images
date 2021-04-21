@@ -23,7 +23,7 @@ node {
 
     stage('Security Checks') {
         def security = new Control(this)
-        security.run(image_name)
+        security.base_image(image_name)
     }
 
     stage('Artifactory') {
