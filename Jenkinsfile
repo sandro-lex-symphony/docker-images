@@ -17,7 +17,7 @@ node {
 
     stage('build and push') {
         builder = new Builder(this)
-        builder.buildAndPush(image_name, 'base1/Dockerfile', 'base1')
+        builder.buildAndPublish(image_name, 'base1/Dockerfile', 'base1')
     }
 
 //    stage('Docker build') {
