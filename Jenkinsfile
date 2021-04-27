@@ -17,7 +17,7 @@ node {
 
     stage('build and push') {
         builder = new Builder(this)
-        builder.setBuildkit(false)
+        builder.buildkit(false)
         builder.buildAndPublish(image_name, 'base1/Dockerfile', 'base1/')
     }
 
