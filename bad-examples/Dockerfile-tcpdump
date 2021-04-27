@@ -4,5 +4,18 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl ca-certificates tcpdump gcc \
     apache2 \
     && rm -rf /var/lib/apt/lists/* 
-
+RUN chmod u-s \
+    /usr/bin/chfn \
+    /bin/mount \
+    /usr/bin/passwd \
+    /bin/su /bin/umount \
+    /usr/bin/chsh \
+    /usr/bin/gpasswd
+RUN chmod g-s \
+    /usr/bin/expiry \
+    /usr/bin/wall \
+    /sbin/unix_chkpwd \
+    /usr/bin/newgrp \
+    /usr/bin/chage 
+RUN echo "kasdlj" > /root/file.txt
 
