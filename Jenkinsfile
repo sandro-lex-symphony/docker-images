@@ -16,7 +16,7 @@ node {
     }
 
    stage('build and push') {
-       sh 'cat /etc/docker/daemon.json'
+       sh 'docker pull  openjdk:8-jre-slim'
        builder = new Builder(this)
        builder.buildkit(true)
        builder.contentTrust(false)
