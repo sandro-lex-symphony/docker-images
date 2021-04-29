@@ -16,6 +16,7 @@ node {
     }
 
    stage('build and push') {
+       sh 'cat /etc/docker/daemon.json'
        builder = new Builder(this)
        builder.buildkit(true)
        builder.contentTrust(false)
