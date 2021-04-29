@@ -1,5 +1,5 @@
 @Library('SnykShared@master')                                                                                                                                                                    
-import com.symphony.security.containers.Control
+import com.symphony.security.containers.SecurityControl
 import com.symphony.security.containers.Artifactory
 import com.symphony.security.containers.Builder
 
