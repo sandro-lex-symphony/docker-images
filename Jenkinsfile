@@ -20,8 +20,6 @@ node {
     //    sh 'DOCKER_BUILDKIT=1 DOCKER_CONTENT_TRUST=0 docker build --no-cache -f base1/Dockerfile -t expbase:1 base1/'
        builder = new Builder(this)
        builder.buildkit(true)
-       builder.contentTrust(true)
-       builder.pullArg(false)
        builder.dockerBuild(image_name, 'base1/Dockerfile', 'base1/')
    }
 
