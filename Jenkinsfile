@@ -17,10 +17,11 @@ node {
 
    stage('build and push') {
        sh 'docker pull  openjdk:8-jre-slim'
-       builder = new Builder(this)
-       builder.buildkit(true)
-       builder.contentTrust(false)
-       builder.dockerBuild(image_name, 'base1/Dockerfile', 'base1/')
+       sh 'DOCKER_BUILDKIT=1 DOCKER_CONTENT_TRUST=0 docker build -f base1/Dockerfile -t expbase:1 base1/'
+    //    builder = new Builder(this)
+    //    builder.buildkit(true)
+    //    builder.contentTrust(false)
+    //    builder.dockerBuild(image_name, 'base1/Dockerfile', 'base1/')
    }
 
     // stage('Docker build') {
