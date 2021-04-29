@@ -17,7 +17,7 @@ node {
 
    stage('build and push') {
        builder = new Builder(this)
-       builder.buildkit(false)
+       builder.buildkit(true)
        builder.contentTrust(false)
        builder.dockerBuild(image_name, 'base1/Dockerfile', 'base1/')
    }
