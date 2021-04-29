@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM openjdk:8-jre-slim 
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl ca-certificates dumb-init \
