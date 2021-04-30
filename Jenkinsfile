@@ -1,13 +1,16 @@
 @Library('SnykShared@master')                                                                                                                                                                    
 import com.symphony.security.containers.SecurityControl
+import com.symphony.security.containers.Dockle
+import com.symphony.security.containers.CheckPackages
+import com.symphony.security.snyk.Container
 import com.symphony.security.containers.Artifactory
 import com.symphony.security.containers.Builder
 
 
 node {
     def gitrepo = 'https://github.com/sandro-lex-symphony/docker-images.git'
-    def image_name = 'expbase:1'
-    def artifactory_repository = "slex-reg-test/expbase:1"
+
+    def builder = new Builder(this, true, true)
 
     stage('Git pull') {
         echo '### Performing git pull for ' + gitrepo
@@ -16,14 +19,16 @@ node {
     }
 
    stage('build and push') {
-    //    sh 'docker pull  openjdk:8-jre-slim'
-    //    sh 'DOCKER_BUILDKIT=1 DOCKER_CONTENT_TRUST=0 docker build --no-cache -f base1/Dockerfile -t expbase:1 base1/'
-       builder = new Builder(this)
-       builder.buildkit(true)
-       builder.contentTrust(false)
-       builder.dockerBuild(image_name, 'base1/Dockerfile', 'base1/')
+       image_name = 'expbase:1'
+       dockerfile = 'base1/Dockerfile'
+       artifactory_repo = 'slex-reg-test/' + image_name
+
+       builder.dockerBuild(image_name, dockerfile, 'base1/', artifactory_repo)
    }
 
+//   stage('Step by Step') {
+
+//   }
     // stage('Docker build') {
     //     echo '### Going to docker build'
     //     sh 'docker --version'
