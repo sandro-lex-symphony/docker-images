@@ -53,7 +53,7 @@ node {
 
         // snyk test
         withCredentials([usernamePassword(credentialsId: 'SNYK_BASEIMAGE_TOKEN', usernameVariable: 'FILLER', passwordVariable: 'SNYK_TOKEN')]) {
-            snyk = new Container(steps, steps.env.SNYK_TOKEN)
+            snyk = new Container(this, SNYK_TOKEN)
             snyk.test(image_name, dockerfile)
         }
 
