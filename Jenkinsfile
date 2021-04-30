@@ -24,11 +24,11 @@ node {
         git  url: gitrepo
     }
 
-   stage('All in one bundle --> build check and push') {
-       builder.buildAndPush(image_name, dockerfile, context_path, artifactory_repo)
-   }
+    stage('All in one bundle --> build check and push') {
+       builder.buildAndPublish(image_name, dockerfile, context_path, artifactory_repo)
+    }
 
-  stage('Using Security Controls function') {
+    stage('Using Security Controls function') {
       // create container
       builder.dockerBuild(image_name, dockerfile, context_path)
 
@@ -37,24 +37,23 @@ node {
 
       // artifactory
       artifactory.push(image_name, artifactory_repo)
-  }
+    }
 
-  
-    // stage('Docker build') {
-    //     echo '### Going to docker build'
-    //     sh 'docker --version'
-    //     sh 'DOCKER_BUILDKIT=1 docker build -f base1/Dockerfile -t ' +image_name+' base1'
-    //     //sh 'docker build -f bad-examples/Dockerfile-tcpdump -t badimage bad-examples'
-    // }
+    stage('Manual Steps') {
+        // docker build
+        sh "DOCKER_BUILDKIT=1 DOCKER_CONTENT_TRUST=1 docker build --no-cache -t ${image_name} -f ${dockerfile} ${context}"
 
-    // stage('Security Checks') {
-    //     def security = new Control(this)
-    //     security.base_image(image_name)
-    // }
+        // snyk test
+        snyk = new Container(this)
+        snyk.test(image_name, dockerfile)
 
-    // stage('Artifactory') {
-    //     def artifactory = new Artifactory(this)
-    //     artifactory.push(image_name, artifactory_repository)
-    // }
+        // checkpackages
+        cp = new CheckPackages(this)
+        cp.run(image_name)
+
+        // dockle 
+        dockle = new Dockle(this)
+        dockle.base_image(image_name)
+    }
 
 }
