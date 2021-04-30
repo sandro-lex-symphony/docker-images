@@ -9,8 +9,14 @@ import com.symphony.security.containers.Builder
 
 node {
     def gitrepo = 'https://github.com/sandro-lex-symphony/docker-images.git'
+    image_name = 'expbase:1'
+    dockerfile = 'base1/Dockerfile'
+    artifactory_repo = 'slex-reg-test/' + image_name
+    context_path = 'base1/'
 
     def builder = new Builder(this, true, true)
+    def security = new SecurityControl(this)
+    def artifactory = new Artifactory(this)
 
     stage('Git pull') {
         echo '### Performing git pull for ' + gitrepo
@@ -18,17 +24,22 @@ node {
         git  url: gitrepo
     }
 
-   stage('build and push') {
-       image_name = 'expbase:1'
-       dockerfile = 'base1/Dockerfile'
-       artifactory_repo = 'slex-reg-test/' + image_name
-
-       builder.dockerBuild(image_name, dockerfile, 'base1/', artifactory_repo)
+   stage('All in one bundle --> build check and push') {
+       builder.buildAndPush(image_name, dockerfile, context_path, artifactory_repo)
    }
 
-//   stage('Step by Step') {
+  stage('Using Security Controls function') {
+      // create container
+      builder.dockerBuild(image_name, dockerfile, context_path)
 
-//   }
+      // security checks
+      security.base_image(image_name, dockerfile)
+
+      // artifactory
+      artifactory.push(image_name, artifactory_repo)
+  }
+
+  
     // stage('Docker build') {
     //     echo '### Going to docker build'
     //     sh 'docker --version'
