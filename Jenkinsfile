@@ -43,10 +43,6 @@ node {
         // docker build
         sh "docker build --no-cache -t ${image_name} -f ${dockerfile} ${context_path}"
 
-        // snyk test
-        snyk = new Container(this)
-        snyk.test(image_name, dockerfile)
-
         // checkpackages
         cp = new CheckPackages(this)
         cp.run(image_name)
@@ -54,6 +50,15 @@ node {
         // dockle 
         dockle = new Dockle(this)
         dockle.base_image(image_name)
+
+        // snyk test
+        withCredentials([usernamePassword(credentialsId: 'SNYK_BASEIMAGE_TOKEN', usernameVariable: 'FILLER', passwordVariable: 'SNYK_TOKEN')]) {
+            snyk = new Container(steps, steps.env.SNYK_TOKEN)
+            snyk.test(image_name, dockerfile)
+        }
+
+        // artifactory
+        // ... 
     }
 
 }
