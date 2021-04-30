@@ -41,7 +41,7 @@ node {
 
     stage('Manual Steps') {
         // docker build
-        sh "DOCKER_BUILDKIT=1 DOCKER_CONTENT_TRUST=1 docker build --no-cache -t ${image_name} -f ${dockerfile} ${context}"
+        sh "docker build --no-cache -t ${image_name} -f ${dockerfile} ${context_path}"
 
         // snyk test
         snyk = new Container(this)
