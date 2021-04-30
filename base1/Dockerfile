@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1.2
-FROM debian-buster 
+FROM debian:buster-slim
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl ca-certificates dumb-init \

@@ -14,7 +14,7 @@ node {
     artifactory_repo = 'slex-reg-test/' + image_name
     context_path = 'base1/'
 
-    def builder = new Builder(this, false, true)
+    def builder = new Builder(this, true, true)
     def security = new SecurityControl(this)
     def artifactory = new Artifactory(this)
 
