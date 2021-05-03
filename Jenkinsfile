@@ -22,11 +22,6 @@ node {
         echo '### Performing git pull for ' + gitrepo
         sh 'pwd'
         git  url: gitrepo
-
-        sh 'cat /etc/os-release'
-        sh 'apt-get update -y && apt-get -y install sl'
-        sh 'apt-get install -y buildah'
-        sh 'which buildah'
     }
 
     stage('All in one bundle --> build check and push') {
