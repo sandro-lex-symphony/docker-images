@@ -40,7 +40,7 @@ ignore:
   SNYK-DEBIAN10-GLIBC-1065768:
     - '*':
         reason: "[sandro.lex@symphony.com] minor issue, only affects encoding of japanese chars (ISO-2022-JP-3) to UTF-8. No fix available yet by debian."
-        expires: 2021-05-06T13:21:39.892Z
+        expires: 2021-08-06T13:21:39.892Z
   SNYK-DEBIAN10-GNUTLS28-609778:
     - '*':
         reason: "[sandro.lex@symphony.com] TLS 1.3 only. Won't happen in production. Check in 2022 again if it is still relevant."
