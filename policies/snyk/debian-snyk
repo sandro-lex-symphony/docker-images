@@ -66,6 +66,13 @@ ignore:
   SNYK-DEBIAN10-PYTHONPIP-609805:
     - '*':
         reason: "[sandro.lex@symphony.com] [buster] - python-pip <no-dsa> (Minor issue) --> pip is not used in production. "
+  SNYK-DEBIAN10-LIBXML2-1277349:
+    - 'rpm/rpm2cpio@4.14.2.1+dfsg1-1 > libarchive/libarchive13@3.3.3-4+deb10u1 > libxml2@2.9.4+dfsg1-7+deb10u1':
+        reason: "[sandro.lex@symphony.com] Buster <ignored> - (Minor Issue, no DSA). Usage in rpm is safe to ignore, won't be exposed in runtime"
+  SNYK-DEBIAN10-LIBXML2-1277350:
+    - 'rpm/rpm2cpio@4.14.2.1+dfsg1-1 > libarchive/libarchive13@3.3.3-4+deb10u1 > libxml2@2.9.4+dfsg1-7+deb10u1':
+        reason: "[sandro.lex@symphony.com] Buster <ignored> - (Minor Issue, no DSA). Usage in rpm is safe to ignore, won't be exposed in runtime"
+
   # MEDIUM
   SNYK-DEBIAN10-GLIBC-559181:
     - '*':
