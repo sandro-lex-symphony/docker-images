@@ -46,8 +46,7 @@ node {
         sh "docker build --no-cache -t ${image_name} -f ${dockerfile} ${context_path}"
         
         // ecr
-        ecr.isOK()
-        ecr.push(image_name, image_name)
+        ecr.push(image_name, 'slex-reg-test/expbase:1')
         echo "XXX DONE XXX"
 
         // checkpackages
