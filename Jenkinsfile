@@ -47,6 +47,8 @@ node {
         
         // ecr
         ecr.isOK()
+        ecr.push(${image_name}, ${image_name})
+        echo "XXX DONE XXX
 
         // checkpackages
 //         cp = new CheckPackages(this)
