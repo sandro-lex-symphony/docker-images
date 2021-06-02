@@ -47,7 +47,7 @@ node {
         
         // ecr
         ecr.isOK()
-        ecr.push(${image_name}, ${image_name})
+        ecr.push(image_name, image_name)
         echo "XXX DONE XXX"
 
         // checkpackages
