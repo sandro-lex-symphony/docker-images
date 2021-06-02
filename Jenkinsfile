@@ -1,4 +1,4 @@
-@Library('ContainersShared@master')                                                                                                                                                                    
+@Library('ContainersShared@main')                                                                                                                                                                    
 import com.symphony.security.containers.SecurityControl
 import com.symphony.security.containers.Dockle
 import com.symphony.security.containers.CheckPackages
